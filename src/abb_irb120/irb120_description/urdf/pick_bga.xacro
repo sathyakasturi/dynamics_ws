@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<robot name="abb_irb120" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+  <xacro:abb_irb120 prefix=""/>
+
+  <xacro:macro name="abb_irb120" params="prefix">
+<!--
+<joint name="${prefix}world-BGA_pickup" type="fixed">
+  <parent link="${prefix}world"/>
+  <child link="${prefix}BGA_pickup"/>
+  <origin rpy="0 0 0" xyz="0.35 -0.2 0.001"/>
+-->
+  <link name="${prefix}BGA_pickup">
+  <inertial>
+  <origin xyz="0 0 0" rpy="-1.57079632679 0 0" />
+  <mass value="0.0012696" />
+  <inertia
+       ixx="5.6578E-08"
+       ixy="-1.2683E-24"
+       ixz="-4.2352E-24"
+       iyy="1.1194E-07"
+       iyz="3.3896E-24"
+       izz="5.6578E-08" />
+  </inertial>
+  <visual>
+  <origin xyz="0 0 0" rpy="-1.57079632679 0 0" />
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/BGA_1.STL" />
+  </geometry>
+  <material name="white">
+  <color rgba="1 1 1 1"/>
+  </material>
+  </visual>
+  <collision>
+  <origin xyz="0 0 0" rpy="-1.57079632679 0 0" />
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/BGA_1.STL" />
+  </geometry>
+  </collision>
+  </link>
+
+</xacro:macro>
+</robot>

@@ -1,0 +1,25 @@
+<!-- rviz Launch file -->
+<launch>
+    <!-- <arg name="sim" default="true" />
+    <arg name="robot_ip" unless="$(arg sim)" /> -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find irb120_description)/urdf/irb120.xacro'" />
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+  </node>
+
+
+  <!-- <group if="$(arg sim)">
+    <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
+  </group>
+
+  <group unless="$(arg sim)">
+    <include file="$(find irb120_description)/launch/robot_interface_download_irb120.launch" >
+      <arg name="robot_ip" value="$(arg robot_ip)"/> -->
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" />
+</launch>

@@ -1,0 +1,41 @@
+digraph G {
+node [shape=box];
+"world" [label="world"];
+"base_link" [label="base_link"];
+"Table" [label="Table"];
+"PCB" [label="PCB"];
+"link_1" [label="link_1"];
+"link_2" [label="link_2"];
+"link_3" [label="link_3"];
+"link_4" [label="link_4"];
+"link_5" [label="link_5"];
+"link_6" [label="link_6"];
+"end_effector" [label="end_effector"];
+"camera_frame" [label="camera_frame"];
+"end_frame" [label="end_frame"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"world" -> "fixed" [label="xyz: 0 0 0.76 \nrpy: 0 -0 0"]
+"fixed" -> "base_link"
+"base_link" -> "base_link-Table" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"base_link-Table" -> "Table"
+"Table" -> "Table-PCB" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"Table-PCB" -> "PCB"
+"base_link" -> "joint_1" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint_1" -> "link_1"
+"link_1" -> "joint_2" [label="xyz: 0 0 0.29 \nrpy: 0 -0 0"]
+"joint_2" -> "link_2"
+"link_2" -> "joint_3" [label="xyz: 0 0 0.27 \nrpy: 0 -0 0"]
+"joint_3" -> "link_3"
+"link_3" -> "joint_4" [label="xyz: 0 0 0.07 \nrpy: 0 -0 0"]
+"joint_4" -> "link_4"
+"link_4" -> "joint_5" [label="xyz: 0.302 0 0 \nrpy: 0 -0 0"]
+"joint_5" -> "link_5"
+"link_5" -> "joint_6" [label="xyz: 0.072 0 0 \nrpy: 0 -0 0"]
+"joint_6" -> "link_6"
+"link_6" -> "joint6-end_effector" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint6-end_effector" -> "end_effector"
+"end_effector" -> "end_effector-cameraframe" [label="xyz: 0.043 0.225 0 \nrpy: 0 -0 0"]
+"end_effector-cameraframe" -> "camera_frame"
+"end_effector" -> "end_effector-endframe" [label="xyz: 0.068 -0.01 0 \nrpy: 0 -0 0"]
+"end_effector-endframe" -> "end_frame"
+}

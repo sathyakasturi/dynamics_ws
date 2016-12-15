@@ -1,0 +1,50 @@
+<!--Test-->
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <!-- <arg name="sim" default="true" />
+  <arg name="robot_ip" unless="$(arg sim)" /> -->
+
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find irb120_gazebo)/worlds/irb120.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="verbose" value="true" />
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+   <param name="robot_description" command="$(find xacro)/xacro.py '$(find irb120_description)/urdf/irb120.xacro'" />
+  <!-- <param name="pick_bga" command="$(find xacro)/xacro.py '$(find irb120_description)/urdf/pick_bga.xacro'" /> -->
+
+  <!-- <rosparam command="load" file="$(find irb120_control)/config/joint_names_irb120.yaml" /> -->
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model irb120 -param robot_description"/>
+
+  <!-- <node name="rviz" pkg="rviz" type="rviz" /> -->
+<rosparam>
+    source_list: [/irb120/joint_states]
+</rosparam>
+
+  <!-- ros_control irb120bot launch file -->
+  <include file="$(find irb120_control)/launch/irb120_control.launch"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+
+  <!-- publish the robot state (tf transforms) -->
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
+
+
+</launch>

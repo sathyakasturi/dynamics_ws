@@ -1,0 +1,576 @@
+<?xml version="1.0" ?>
+<robot name="abb_irb120" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!--  <xacro:include filename="$(find irb120_description)/urdf/common_colors.xacro"/> -->
+  <xacro:include filename="$(find irb120_description)/urdf/common_materials.xacro"/>
+
+  <xacro:abb_irb120 prefix=""/>
+
+  <xacro:macro name="abb_irb120" params="prefix">
+
+<!-- ros_control plugin -->
+  <gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+  <robotNamespace>/irb120</robotNamespace>
+  <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+  </plugin>
+  </gazebo>
+
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+  <parent link="world"/>
+  <child link="base_link"/>
+  <origin rpy="0 0 0" xyz="0 0 0.76"/>
+  </joint>
+
+
+
+  <!-- Description of base_link -->
+  <link name="${prefix}base_link">
+
+  <inertial>
+  <mass value="6.215"/>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <inertia ixx="0.0247272" ixy="-8.0784E-05" ixz="0.00130902" iyy="0.0491285" iyz="-8.0419E-06" izz="0.0472376"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/base_link.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/base_link.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+ 
+  <!-- Joint - 1 -->
+  <joint name="${prefix}joint_1" type="revolute">
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+  <parent link="${prefix}base_link"/>
+  <child link="${prefix}link_1"/>
+  <limit effort="20" lower="-2.87979" upper="2.87979" velocity="4.36332"/>
+  <axis xyz="0 0 1"/>
+  <dynamics damping="1" friction="0"/>
+  </joint>
+
+  <!-- Description of link - 1 -->
+  <link name="${prefix}link_1">
+
+  <inertial>
+  <mass value="3.067" />
+  <origin xyz="0 0 0.23841" rpy="0 0 0"/>
+  <inertia ixx="0.0142175" ixy="-1.28579E-05" ixz="-2.31364E-05" iyy="0.0144041" iyz="1.93404E-05" izz="0.0104533"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_1.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_1.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+
+  <!-- Joint - 2 -->
+  <joint name="${prefix}joint_2" type="revolute">
+  <origin rpy="0 0 0" xyz="0 0 0.29"/>
+  <parent link="${prefix}link_1"/>
+  <child link="${prefix}link_2"/>
+  <limit effort="20" lower="-1.91986" upper="1.91986" velocity="4.36332"/>
+  <axis xyz="0 -1 0"/>
+  <dynamics damping="1" friction="0"/>
+  </joint>
+
+  <!-- Description of link - 2 -->
+  <link name="${prefix}link_2">
+
+  <inertial>
+  <mass value="3.909"/>
+  <origin xyz="0.00078 -0.00212 0.10124" rpy="0 0 0"/>
+  <inertia ixx="0.0603111" ixy="9.83431E-06" ixz="5.72407E-05" iyy="0.041569" iyz="-0.00050497" izz="0.0259548"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_2.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_2.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+
+  <!-- Joint - 3 -->
+  <joint name="${prefix}joint_3" type="revolute">
+  <origin rpy="0 0 0" xyz="0 0 0.27"/>
+  <parent link="${prefix}link_2"/>
+  <child link="${prefix}link_3"/>
+  <limit effort="20" lower="-1.91986" upper="1.22173" velocity="4.36332"/>
+  <axis xyz="0 -1 0"/>
+  <dynamics damping="1" friction="0.0"/>
+  </joint>
+
+  <!-- Description of link - 3 -->
+  <link name="${prefix}link_3">
+
+  <inertial>
+  <mass value="2.944"/>
+  <origin xyz="0.02281 0.00106 0.05791" rpy="0 0 0"/>
+  <inertia ixx="0.00835606" ixy="-8.01545E-05" ixz="0.00142884" iyy="0.016713" iyz="-0.000182227" izz="0.0126984"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_3.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_3.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+
+  <!-- Joint - 4 -->
+   <joint name="${prefix}joint_4" type="revolute">
+   <origin rpy="0 0 0" xyz="0 0 0.07"/>
+   <parent link="${prefix}link_3"/>
+   <child link="${prefix}link_4"/>
+   <limit effort="20" lower="-4" upper="4" velocity="5.58505"/>
+   <axis xyz="1 0 0"/>
+   <dynamics damping="1" friction="0"/>
+   </joint>
+
+  <!--  Description of link - 4 -->
+  <link name="${prefix}link_4">
+
+  <inertial>
+  <mass value="0.1328"/>
+  <origin xyz="0.2247 0.00015 0.00041" rpy="0 0 0"/>
+  <inertia ixx="0.00284661" ixy="-2.12765E-05" ixz="-1.6435E-05" iyy="0.00401346" iyz="1.31336E-05" izz="0.0052535"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_4.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_4.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+
+  <!-- Joint - 5 -->
+   <joint name="${prefix}joint_5" type="revolute">
+   <origin rpy="0 0 0" xyz="0.302 0 0"/>
+   <parent link="${prefix}link_4"/>
+   <child link="${prefix}link_5"/>
+   <limit effort="20" lower="-2.094395" upper="2.094395" velocity="5.58505"/>
+   <axis xyz="0 -1 0"/>
+   <dynamics damping="1" friction="0.0"/>
+   </joint>
+
+  <!-- Description of link - 5-->
+  <link name="${prefix}link_5">
+
+  <inertial>
+  <mass value="0.546"/>
+  <origin xyz="-0.00109 3.68E-05 6.22E-05" rpy="0 0 0"/>
+  <inertia ixx="0.00284661" ixy="-2.12765E-05" ixz="-1.6435E-05" iyy="0.00401346" iyz="1.31336E-05" izz="0.0052535"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_5.stl"/>
+  </geometry>
+  <xacro:material_abb_orange />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_5.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+  <!-- Joint - 6 -->
+  <joint name="${prefix}joint_6" type="revolute">
+  <origin rpy="0 0 0" xyz="0.072 0 0"/>
+  <parent link="${prefix}link_5"/>
+  <child link="${prefix}link_6"/>
+  <limit effort="20" lower="-4" upper="4" velocity="7.33038"/>
+  <axis xyz="1 0 0"/>
+  <dynamics damping="1" friction="0.0"/>
+  </joint>
+
+  <!-- Description of link - 6 -->
+  <link name="${prefix}link_6">
+
+  <inertial>
+  <mass value="0.137"/>
+  <origin xyz="-0.00706 -0.00017 -1.32E-06" rpy="0 0 0"/>
+   <inertia ixx="0.00284661" ixy="-2.12765E-05" ixz="-1.6435E-05" iyy="0.00401346" iyz="1.31336E-05" izz="0.0052535"/>
+  </inertial>
+
+  <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/visual/link_6.stl"/>
+  </geometry>
+  <xacro:material_abb_black />
+  </visual>
+
+  <collision>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <geometry>
+  <mesh filename="package://irb120_description/meshes/collision/link_6.stl"/>
+  </geometry>
+  <xacro:material_abb_yellow />
+  </collision>
+
+  </link>
+
+  <!-- joint - 6 ___ end_effector -->
+  <joint name="${prefix}joint6-end_effector" type="fixed">
+  <parent link="${prefix}link_6"/>
+  <child link="${prefix}end_effector"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+<!--
+ <link name="${prefix}end_effector">
+ <inertial>
+ <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+ <mass value="0.14696" />
+ <inertia ixx="0.000127404209855757"  ixy="6.40857267330344E-08"  ixz="-1.24586314053052E-05"
+          iyy="-5.65558859005698E-10" iyz="-0.000345416669451785" izz="5.65558859044546E-10" />
+ </inertial>
+ <visual>
+ <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+ <geometry>
+ <mesh filename="package://irb120_description/meshes/visual/EndEffector.SLDPRT.STL" />
+ </geometry>
+ <material name="">
+ <color rgba="1 1 1 1" />
+ </material>
+ </visual>
+ <collision>
+  <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+ <geometry>
+ <mesh filename="package://irb120_description/meshes/collision/EndEffector.SLDPRT.STL" />
+ </geometry>
+ </collision>
+ </link>
+-->
+
+ <link name="${prefix}end_effector">
+  <visual>
+   <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+   <geometry>
+   <mesh filename="package://irb120_description/meshes/visual/EndEffector.SLDPRT.STL" />
+   </geometry>
+   <material name="">
+   <color rgba="1 1 1 1" />
+   </material>
+  </visual>
+ <collision>
+   <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+   <geometry>
+   <mesh filename="package://irb120_description/meshes/collision/EndEffector.SLDPRT.STL" />
+   </geometry>
+ </collision>
+ <inertial>
+   <origin xyz="0 0 0" rpy="-1.57079632679 0 1.57079632679" />
+   <mass value="0.01"/>
+   <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
+ </inertial>
+ </link>
+     
+  <!-- end_effector ____ end_frame -->
+  <joint name="${prefix}vacuum_joint" type="revolute">
+  <parent link="${prefix}end_effector"/>
+  <child link="${prefix}end_frame"/>
+  <limit effort="30" velocity="1.0" lower="0" upper="0" />
+  <origin rpy="0 0 0" xyz="0.160 0.0325 0"/>
+  </joint>
+
+  <!-- Description of end_frame -->
+  <link name="${prefix}end_frame">
+  <gravity>0</gravity>
+  <inertial>
+  <origin rpy="0 0 0" xyz="0.000000 0.000000 0.000000"/>
+  <mass value="0.0001"/>
+  <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
+  </inertial>
+  </link>
+
+ <gazebo>
+ <plugin name="gazebo_ros_vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+ <robotNamespace>irb120</robotNamespace>
+ <bodyName>${prefix}end_frame</bodyName>
+ <topicName>grasping</topicName>
+ <maxForce>20</maxForce>
+ <maxDistance>0.10</maxDistance>
+ <minDistance>0.10</minDistance>
+ </plugin>
+ </gazebo>
+ 
+ <joint name="${prefix}camera_joint" type="fixed">
+    <origin xyz="0.068 -0.0325 0" rpy="0 0 0"/>
+    <parent link="${prefix}end_effector"/>
+    <child link="${prefix}camera_link"/>
+  </joint>
+  
+<!-- Camera -->
+   
+   <link name="${prefix}camera_link">
+   <collision>
+   <origin xyz="0 0 0" rpy="1.57079632679 0 1.57079632679"/>
+   <geometry>
+   <mesh filename="package://irb120_description/meshes/visual/camera.STL" />
+   </geometry>
+   </collision>
+   <visual>
+   <origin xyz="0 0 0" rpy="1.57079632679 0 1.57079632679"/>
+   <geometry>
+   <mesh filename="package://irb120_description/meshes/collision/camera.STL" />
+   </geometry>
+   <material name="red"/>
+   </visual>
+
+   <inertial>
+   <mass value="1e-5" />
+   <origin xyz="0 0 0" rpy="1.57079632679 0 1.57079632679"/>
+   <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+   </inertial>
+   </link>
+
+
+
+
+  <!-- end_effector ____ camera_frame -->
+  <!--<joint name="${prefix}end_effector-cameraframe" type="fixed">
+  <parent link="${prefix}end_effector"/>
+  <child link="${prefix}camera_frame"/>
+  <origin rpy="0 0 0" xyz="0.043 0.225 0"/>
+  </joint>
+-->
+  <!-- Description of camera_frame -->
+  <!--<link name="camera_frame"/>-->
+
+
+
+
+
+
+
+
+
+
+
+
+  <transmission name="${prefix}tran1">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_1">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor1">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran2">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_2">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor2">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran3">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_3">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor3">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran4">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_4">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor4">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran5">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_5">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor5">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran6">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}joint_6">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor6">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+  <transmission name="${prefix}tran7">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="${prefix}vacuum_joint">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor6">
+  <hardwareInterface>EffortJointInterface</hardwareInterface>
+  <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  </transmission>
+
+<!-- Gazebo-specific link properties -->
+
+  <gazebo reference="${prefix}base_link">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_1">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_2">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_3">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_4">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_5">
+  <material>Gazebo/Orange</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="${prefix}link_6">
+  <material>Gazebo/Black</material>
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  
+ <!-- camera -->
+  <gazebo reference="${prefix}camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>.95</horizontal_fov>
+        <!-- <horizontal_fov>0.95</horizontal_fov> -->
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>irb120/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+</xacro:macro>
+</robot>
